@@ -16,8 +16,6 @@ def getPrimeNum(n):
 
 
 getPrimeNum(n)
-for i in range(m, n):
+for i in range(m, n + 1):
     if prime[i]:
         print(i)
-
-
