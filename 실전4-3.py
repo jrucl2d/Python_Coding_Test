@@ -3,63 +3,25 @@ a, b, d = map(int, input().split())
 arr = []
 for i in range(n):
     arr.append(list(map(int, input().split())))
+arr[a][b] = 1  # 첫 위치는 방문 처리
 
-arr[a][b] = 1
+# 순서대로 북, 동, 남, 서
+dx = [-1, 0, 1, 0]
+dy = [0, 1, 0, -1]
 
 
 def move():
     global a, b, d
-    if d == 0:  # 북
-        d = 3
-        nb = b - 1
-        if arr[a][nb] == 1:  # 왼쪽이 갈 수 없다면 false 리턴
-            return False
-        b = b - 1  # 갈 수 있다면 왼쪽으로 한 칸 전진 후 true 리턴
-        arr[a][b] = 1
-        return True
-    elif d == 1:  # 동
-        d = 0
-        na = a - 1
-        if arr[na][b] == 1:
-            return False
-        a = a-1
-        arr[a][b] = 1
-        return True
-    elif d == 2:  # 남
-        d = 1
-        nb = b + 1
-        if arr[a][nb] == 1:
-            return False
-        b = b+1
-        arr[a][b] = 1
-        return True
-    else:  # 서
-        d = 2
-        na = a + 1
-        if arr[na][b] == 1:
-            return False
-        a = a+1
-        arr[a][b] = 1
-        return True
-
-# 4 4
-# 1 1 0
-# 1 1 1 1
-# 1 0 0 1
-# 1 1 0 1
-# 1 1 1 1
-
-
-def goBack():
-    global a, b, d
-    if d == 0:
-        b = b - 1
-    elif d == 1:
-        a -= 1
-    elif d == 2:
-        b += 1
-    else:
-        a += 1
+    na = a + dx[d]
+    nb = b + dy[d]
+    d = 3 if d - 1 == -1 else d - 1
+    if arr[na][nb] == 1:  # 왼 쪽이 갈 수 없다면 false를 리턴
+        return False
+    # 갈 수 있다면 한 칸 전진하고 true 리턴
+    a = na
+    b = nb
+    arr[a][b] = 1
+    return True
 
 
 ansCnt = 1
@@ -72,7 +34,15 @@ while True:
             ansCnt += 1
             break
     if not canGoNext:
-        goBack()
+        a -= dx[d]  # 뒤로 이동
+        b -= dy[d]
         if arr[a][b] == 1:
             break
 print(ansCnt)
+
+# 4 4
+# 1 1 0
+# 1 1 1 1
+# 1 0 0 1
+# 1 1 0 1
+# 1 1 1 1
