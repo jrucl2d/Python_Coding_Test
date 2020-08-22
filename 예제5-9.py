@@ -1,0 +1,32 @@
+from collections import deque
+
+graph = [
+    [],
+    [2, 3, 8],
+    [1, 7],
+    [1, 4, 5],
+    [3, 5],
+    [3, 4],
+    [7],
+    [2, 6, 8],
+    [1, 7]
+]
+
+visited = [False] * 9
+
+q = deque()
+
+
+def BFS(index):
+    q.append(index)
+    visited[index] = True
+    while q:
+        index = q.popleft()
+        print(index, end=" ")
+        for i in graph[index]:
+            if not visited[i]:
+                q.append(i)
+                visited[i] = True
+
+
+BFS(1)
