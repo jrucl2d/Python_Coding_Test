@@ -9,11 +9,25 @@ for _ in range(m):
     graph[a][b] = 1
     graph[b][a] = 1
 
+for a in range(1, n+1):
+    for b in range(1, n+1):
+        if a == b:
+            graph[a][b] = 0
 
 x, k = map(int, input().split())
 
 # 플로이드 워셜 알고리즘
-for k in range(n)
+for k in range(1, n+1):
+    for a in range(1, n+1):
+        for b in range(1, n+1):
+            graph[a][b] = min(graph[a][b], graph[a][k] + graph[k][b])
+
+ans = graph[1][k] + graph[k][x]
+if(ans > INF):
+    print(-1)
+else:
+    print(ans)
+
 
 # 5 7
 # 1 2
