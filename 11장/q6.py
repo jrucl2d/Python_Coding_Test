@@ -25,5 +25,3 @@ def solution(food_times, k):
     # 남은 음식 중에서 몇 번째 음식인지 확인
     result = sorted(q, key=lambda x: x[1])  # 음식 번호 기준으로 정렬
     return result[(k - sumNum) % length][1]
-
-    return answer
