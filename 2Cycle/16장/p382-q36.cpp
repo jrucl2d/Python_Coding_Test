@@ -2,38 +2,30 @@
 #include <string>
 using namespace std;
 
+int dp[5001][5001];
+
 int main() {
     ios::sync_with_stdio(NULL);
     cin.tie(NULL);
     cout.tie(NULL);
     string a, b;
     cin >> a >> b;
-    if (a.size() == b.size()) {
-        int cnt = 0;
-        for (int i = 0; i < a.size(); i++) {
-            if (a[i] != b[i]) {
-                cnt += 1;
-            }
-        }
-        cout << cnt;
-    } else {
-        if (a.size() > b.size()) {
-            string tmp = a;
-            a = b;
-            b = tmp;
-        }
-        int s = 0, cnt = 0;
-        for (int i = 0; i < a.size(); i++) {
-            for (int j = s; j < b.size(); j++) {
-                if (a[i] == b[j]) {
-                    s = j + 1;
-                    cnt += 1;
-                    break;
-                }
-            }
-        }
-        cout << b.size() - cnt;
+    for(int i = 1; i <= b.size(); i++){
+        dp[0][i] = i;
     }
+    for(int i = 1; i <= a.size(); i++){
+        dp[i][0] = i;
+    }
+    for(int i = 1; i <= a.size(); i++){
+        for(int j = 1; j <= b.size(); j++){
+            if(a[i - 1] == b[j - 1]){
+                dp[i][j] = dp[i - 1][j - 1];
+            } else {
+                dp[i][j] = min(min(dp[i - 1][j], dp[i - 1][j - 1]), dp[i][j - 1]) + 1;
+            }
+        }
+    }
+    cout << dp[a.size()][b.size()];
 
     return 0;
 }
